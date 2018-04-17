@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+      <meta http-equiv="X-UA-Compatible" content="ie=edge,chrome=1">
+      <title>主页</title>
+      <link rel="stylesheet" href="./styles/index.css">
+   </head>
+
+   <body>
+      <div class="home-container">
+         this is home page
+         <input id="input" type="text" />
+         <a href="./views/aboutus.html">aboutus</a>
+         <button class="btn">change background-color</button>
+      </div>
+      <div style="height: 1000px;background-color: #eee;">
+         是的发送到发打发
+      </div>
+      <script type="text/javascript">
+         if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+               navigator.serviceWorker.register('./sw.js').then(registration => {
+                  console.log('SW registered: ', registration);
+               }).catch(registrationError => {
+                  console.log('SW registration failed: ', registrationError);
+               });
+            });
+         }
+      </script>
+      <script src="./libs/jquery-3.2.1.min.js" charset="utf-8"></script>
+      <script src="./scripts/index.js" charset="utf-8"></script>
+   </body>
+
+</html>
