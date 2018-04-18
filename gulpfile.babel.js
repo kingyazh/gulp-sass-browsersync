@@ -48,7 +48,8 @@ gulp.task('minify-html', ['move-html'], () => {
 // 编译 sass
 gulp.task('sass', () => {
     return gulp
-        .src('./src/styles/*.scss','./src/styles/**/*.scss','!./src/styles/**/css.scss')
+        .src('./src/styles/**/*.scss')
+        // .src('./src/styles/**/*.scss','!./src/styles/**/css.scss') // 排除文件时报错，需排查
         .pipe(sass({ outputStyle: 'expanded' }).on('error', sass.logError))
         .pipe(autofx(config.autofx))
         .pipe(gulp.dest('./dev/styles'))
@@ -69,7 +70,7 @@ gulp.task('minify-css', ['sass'], () => {
 gulp.task('babel-js', () => {
     return (
         gulp
-            .src('./src/scripts/*.js','./src/scripts/**/*.js')
+            .src('./src/scripts/**/*.js')
             .pipe(eslint())
             .pipe(eslint.format())
             .pipe(changed('./dev/scripts'))
@@ -93,7 +94,7 @@ gulp.task('minify-js', ['babel-js'], () => {
 // 转移图片
 gulp.task('move-img', () => {
     return gulp
-        .src('./src/images/*.{png,jpg,gif,ico}','./src/images/**/*.{png,jpg,gif,ico}')
+        .src('./src/images/**/*.{png,jpg,gif,ico}')
         .pipe(changed('./dev/img'))
         .pipe(gulp.dest('./dev/img'))
         .pipe(reload({ stream: true }));
@@ -124,13 +125,13 @@ gulp.task('build-json', () => {
 
 // 转移 libs 插件
 gulp.task('move-libs-dev', () => {
-    return gulp.src('./src/libs/*','./src/libs/**/*')
+    return gulp.src('./src/libs/**/*')
         .pipe(gulp.dest('./dev/libs'));
 });
 
 gulp.task('move-libs-build', () => {
     return gulp
-        .src('./src/libs/*','./src/libs/**/*')
+        .src('./src/libs/**/*')
         .pipe(gulp.dest('./build/libs'))
     // .pipe(md5(10, './build/**/*.html'));
 });
@@ -270,7 +271,7 @@ gulp.task('build', cb => {
         'minify-img',
         'build-json',
         'build-manifest',
-        'generate-service-worker',
+        // 'generate-service-worker',//生产打包时服务器配置
         cb
     );
 });

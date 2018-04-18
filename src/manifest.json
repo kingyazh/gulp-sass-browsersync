@@ -1,13 +1,13 @@
 {
-   "name": "Gulp PWA Demo",
-   "short_name": "Gulp PWA",
+   "name": "Gulp ES6 sass Browsersync",
+   "short_name": "Gulp ES6 sass Browsersync",
    "start_url": "./index.html",
    "display": "standalone",
-   "description": "this is a Gulp-PWA project create by workbox",
+   "description": "Gulp ES6 sass Browsersync",
    "orientation": "natural",
    "prefer_related_applications": false,
-   "theme_color": "#FFDF00",
-   "background_color": "#FFDF00",
+   "theme_color": "#55bbff",
+   "background_color": "#55bbff",
    "icons": [
       {
          "src": "./imgs/icon.png",

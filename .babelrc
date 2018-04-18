@@ -8,8 +8,7 @@
           "node": "current",
           "browsers": [
             "> 1%",
-            "last 2 versions",
-            "not ie <= 8"
+            "ie 6-8"
           ]
         }
       }
