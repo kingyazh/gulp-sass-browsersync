@@ -48,7 +48,7 @@ gulp.task('minify-html', ['move-html'], () => {
 // 编译 sass
 gulp.task('sass', () => {
     return gulp
-        .src('./src/styles/**/*.scss')
+        .src('./src/styles/**/*.{scss,css}')
         // .src('./src/styles/**/*.scss','!./src/styles/**/css.scss') // 排除文件时报错，需排查
         .pipe(sass({ outputStyle: 'expanded' }).on('error', sass.logError))
         .pipe(autofx(config.autofx))
@@ -95,16 +95,16 @@ gulp.task('minify-js', ['babel-js'], () => {
 gulp.task('move-img', () => {
     return gulp
         .src('./src/images/**/*.{png,jpg,gif,ico}')
-        .pipe(changed('./dev/img'))
-        .pipe(gulp.dest('./dev/img'))
+        .pipe(changed('./dev/images'))
+        .pipe(gulp.dest('./dev/images'))
         .pipe(reload({ stream: true }));
 });
 
 // 转移图片（不压缩）
 gulp.task('minify-img', ['move-img'], () => {
     return gulp
-        .src('./dev/img/**/*.{png,jpg,gif,ico}')
-        .pipe(gulp.dest('./build/img'))
+        .src('./dev/images/**/*.{png,jpg,gif,ico}')
+        .pipe(gulp.dest('./build/images'))
 });
 
 // json 转移
@@ -233,7 +233,7 @@ gulp.task('dev', cb => {
 });
 
 // 测试执行
-gulp.task('run', () => {
+gulp.task('run', ['dev'], () => {
     browserSync.init({// 启动Browsersync服务
         port: 18888,
         // proxy: "http://www.caissa.com", //后端服务器地址，调试接口时，不用设置浏览器跨域，修改此处的域地址
@@ -247,6 +247,7 @@ gulp.task('run', () => {
         },
         open: 'external', // 决定Browsersync启动时自动打开的网址，external 表示 可外部打开 url, 可以在同一 wifi 下不同终端测试
         injectChanges: true, // 注入CSS改变
+        //reloadOnRestart: false,//刷新每个浏览器时Browsersync重新启动。
         ui:{
             port: 18889,
             weinre: {
@@ -255,9 +256,10 @@ gulp.task('run', () => {
         }
     });
 
+    //gulp.watch  监听文件变化
     gulp.watch('./src/styles/**/*.scss', ['sass']);
     gulp.watch('./src/scripts/**/*.js', ['babel-js']);
-    gulp.watch('./src/images/**/*.{png,jpg,gif,ico}', ['move-img']);
+    gulp.watch('src/images/**/*.{png,jpg,gif,ico}', ['move-img']); //原先路径为：./src/images/**/*.{png,jpg,gif,ico} 时，监听图片没起作用，具体情况需排查，先从监听html时，图片移动，去掉 ./ 就行了。什么引起的路径问题？
     gulp.watch('./src/_data/*.json', ['move-json']);
     gulp.watch('./src/**/*.html', ['move-html']).on('change', reload);
 });
