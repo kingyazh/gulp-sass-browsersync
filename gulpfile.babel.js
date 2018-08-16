@@ -236,7 +236,7 @@ gulp.task('dev', cb => {
 gulp.task('run', ['dev'], () => {
     browserSync.init({// 启动Browsersync服务
         port: 18888,
-        // proxy: "http://www.caissa.com", //后端服务器地址，调试接口时，不用设置浏览器跨域，修改此处的域地址
+        // proxy: "http://www.domain.com", //后端服务器地址，调试接口时，不用设置浏览器跨域，修改此处的域地址
         server: {
             baseDir: './dev', // 启动服务的目录 默认 index.html
             index: 'index.html', // 自定义启动文件名
